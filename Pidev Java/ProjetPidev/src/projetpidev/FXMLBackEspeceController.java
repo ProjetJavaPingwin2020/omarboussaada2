@@ -18,7 +18,9 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -78,6 +80,10 @@ public class FXMLBackEspeceController implements Initializable {
     private Button FormationsBtn;
     @FXML
     private Label Lhello;
+    @FXML
+    private Button list_Categorie;
+    @FXML
+    private Button list_espece;
 
     /**
      * Initializes the controller class.
@@ -145,6 +151,7 @@ public class FXMLBackEspeceController implements Initializable {
             alert.setContentText("ajouter avec succés");
 
             alert.showAndWait();
+       utils.SendEmail.sendMail("blackoperation3@gmail.com");
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -170,6 +177,7 @@ public class FXMLBackEspeceController implements Initializable {
             alert.setHeaderText("Dialogue information");
             alert.setContentText("espece supprimer");
             alert.showAndWait();
+        utils.SendEmail.sendMail("blackoperation3@gmail.com");
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -190,7 +198,7 @@ public class FXMLBackEspeceController implements Initializable {
 
    @FXML
     
-    private void modifer(ActionEvent event) throws SQLException {
+    private void modifer(ActionEvent event) throws SQLException, Exception {
          String Nom = nom.getText();
          String Type = type.getText();
          String Description = description.getText();
@@ -209,6 +217,7 @@ public class FXMLBackEspeceController implements Initializable {
             alert.setContentText("Modification avec succés");
 
             alert.showAndWait();
+            utils.SendEmail.sendMail("blackoperation3@gmail.com");
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -283,6 +292,30 @@ public class FXMLBackEspeceController implements Initializable {
 
     @FXML
     private void redirectionFormation(ActionEvent event) {
+    }
+
+    @FXML
+    private void redirectionEspece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLBackCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLBackCategorie_especeController acc = loader.getController();
+        FormationsBtn.getScene().setRoot(root);
+    }
+// sous menu
+   @FXML
+      private void list_Categorie(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLBackCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLBackCategorie_especeController acc = loader.getController();
+        list_Categorie.getScene().setRoot(root);
+    }
+
+    @FXML
+    private void list_espece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLBackEspece.fxml"));
+        Parent root = loader.load();
+        FXMLBackEspeceController acc = loader.getController();
+        list_espece.getScene().setRoot(root);
     }
     
 }

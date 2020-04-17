@@ -5,6 +5,7 @@
  */
 package Entity;
 
+import java.math.BigInteger;
 import java.sql.Date;
 
 /**
@@ -25,6 +26,53 @@ public class FosUser {
       private String confirmation_token ;
       private Date password_requested_at ;
       private String roles ;
+      private String nom ;
+      private String prenom ;
+      private String adresse ;
+      private String telephone ;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public FosUser(String username, String email, String password, String roles, String nom, String prenom, String adresse, String telephone) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.telephone = telephone;
+    }
      
 
     public FosUser(int id, String username, String username_canonical, String email, String email_canonical, int enabled, String salt, String password, Date last_login, String confirmation_token, Date password_requested_at, String roles, String nom, String prenom) {

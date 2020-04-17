@@ -9,6 +9,7 @@ import Entity.Categorie_espece;
 import Entity.Espece;
 import Services.ServiceCategorie_espece;
 import Services.ServiceEspece;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -19,7 +20,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -70,6 +73,10 @@ public class FXMLAfficherEspeceController implements Initializable {
     private Button BoutiqueBtn;
     @FXML
     private Button FormationsBtn;
+    @FXML
+    private Button list_Categorie;
+    @FXML
+    private Button list_espece;
     /**
      * Initializes the controller class.
      */
@@ -84,7 +91,10 @@ public class FXMLAfficherEspeceController implements Initializable {
      
       
     
-
+       ServiceEspece se = new ServiceEspece();
+       ServiceCategorie_espece sce = new ServiceCategorie_espece();
+       
+       
        TableColumn nom = new TableColumn("Nom");
        especetable.getColumns().addAll(nom);
        TableColumn type = new TableColumn("Type");
@@ -96,7 +106,7 @@ public class FXMLAfficherEspeceController implements Initializable {
         
         
         
-        ServiceEspece se = new ServiceEspece();
+      //  System.out.println(e.getNomCategorie(categorie));
         categorie.setCellValueFactory(new PropertyValueFactory<Espece, String>("categorie"));
         nom.setCellValueFactory(new PropertyValueFactory<Espece, String>("nom"));
         type.setCellValueFactory(new PropertyValueFactory<Espece, String>("type"));
@@ -171,5 +181,28 @@ private void backgroundAnimation() {
     @FXML
     private void redirectionFormation(ActionEvent event) {
     }
-    
+
+   @FXML
+    private void redirectionEspece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAfficherCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLAfficherCategorie_especeController acc = loader.getController();
+        FormationsBtn.getScene().setRoot(root);
+    }
+//sous menu
+    @FXML
+    private void list_Categorie(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAfficherCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLAfficherCategorie_especeController acc = loader.getController();
+        FormationsBtn.getScene().setRoot(root);
+    }
+
+    @FXML
+    private void list_espece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAfficherEspece.fxml"));
+        Parent root = loader.load();
+       FXMLAfficherEspeceController acc = loader.getController();
+        FormationsBtn.getScene().setRoot(root);
+    }
 }

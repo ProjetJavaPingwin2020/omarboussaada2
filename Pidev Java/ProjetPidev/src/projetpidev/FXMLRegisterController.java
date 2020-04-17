@@ -7,7 +7,7 @@ package projetpidev;
 
 import Entity.FosUser;
 import Services.Cryptage;
-import Services.UserSevice;
+import Services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,7 +57,7 @@ public class FXMLRegisterController implements Initializable {
                  try {
                 
                            
-                                UserSevice s1 = new UserSevice();
+                                UserService s1 = new UserService();
                                 Cryptage Cryptage = new Cryptage("lv39eptlvuhaqqsr");
                                 String encdata = Cryptage.encrypt(password.getText());
                                         String r = roles.getSelectionModel().getSelectedItem().toString();

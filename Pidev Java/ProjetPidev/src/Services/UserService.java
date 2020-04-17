@@ -20,12 +20,12 @@ import utils.ConnexionBase;
  *
  * @author Yass
  */
-public class UserSevice {
+public class UserService {
         private Connection cnx;
     private Statement st;
     private PreparedStatement pre;
 
-    public UserSevice() {
+    public UserService() {
             cnx = ConnexionBase.getInstance().getCnx();
     }
     
@@ -42,18 +42,18 @@ public class UserSevice {
                
         u.setEnabled(1);
         int en=u.getEnabled();
-               System.out.println(01);
+             
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             u.setLast_login(date);
-               System.out.println(02);
+               
            
             
             
-            String req = "INSERT INTO `fos_user`(`username`,`username_canonical`, `email`,`email_canonical`,`enabled`,`password`,`last_login`, `roles`) "
+            String req = "INSERT INTO `fos_user`(`username`,`username_canonical`, `email`,`email_canonical`,`enabled`,`password`,`last_login`, `roles`, `nom`, `prenom`, `adresse`, `telephone`) "
                     + "VALUES ('"+u.getUsername()+"','"+can+"','"+u.getEmail()+"','"+mail+"','"+en+"','"+u.getPassword()+"','"+u.getLast_login()
-                    +"','"+u.getRoles()+"') ";
+                    +"','"+u.getRoles()+"','"+u.getNom()+"','"+u.getPrenom()+"','"+u.getAdresse()+"','"+u.getTelephone()+"') ";
             
-               System.out.println(03);
+               
             
           st = cnx.createStatement();
 
@@ -88,14 +88,14 @@ public class UserSevice {
                        
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(UserSevice.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                
                 user = null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserSevice.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }
        return user;
     }
@@ -110,14 +110,7 @@ public class UserSevice {
            int id_user=u.getId();
            
                 
-               
         
-        
-              
-            
-           
-             
-           
             
             
             String req = "INSERT INTO `login`(`id_user`,`username`,`mail`) "
@@ -180,6 +173,66 @@ public class UserSevice {
          return pseudoL;
             }
             
+       
             
+            
+            
+            
+            
+            
+            
+      public String getloginusername() throws SQLException {
+           ResultSet rs;
+       
+        
+        st=cnx.createStatement();
+        String pseudoL = null;
+        
+        
+        String req="SELECT username FROM `login` ";
+        rs=st.executeQuery(req);
+         while (rs.next()) {
+         
+         pseudoL= rs.getString("username");
+        } 
+         return pseudoL;
+            } 
+            
+            public String getusername(int idd) throws SQLException {
+           ResultSet rs;
+       
+        
+        st=cnx.createStatement();
+        String pseudoL = null;
+        
+        
+        String req="SELECT * FROM `fos_user` ";
+        rs=st.executeQuery(req);
+         while (rs.next()) {
+         if( rs.getInt("id") ==idd)
+             
+         pseudoL= rs.getString("username");
+        } 
+         return pseudoL;
+            }
+
+            
+            public String gettelephone(int idd) throws SQLException {
+           ResultSet rs;
+       
+        
+        st=cnx.createStatement();
+        String pseudoL = null;
+        
+        
+        String req="SELECT * FROM `fos_user` ";
+        rs=st.executeQuery(req);
+         while (rs.next()) {
+         if( rs.getInt("id") ==idd)
+             
+         pseudoL= rs.getString("telephone");
+        } 
+         return pseudoL;
+            }
             
 }

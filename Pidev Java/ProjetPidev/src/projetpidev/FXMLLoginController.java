@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projetpidev;
 
 import Entity.FosUser;
-import Services.UserSevice;
+import Services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -53,8 +49,8 @@ public class FXMLLoginController implements Initializable {
     void login(ActionEvent event) throws SQLException, IOException {
         
         
-  UserSevice s1=new UserSevice();
-  s1.deletelogin();
+  UserService s1=new UserService();
+      s1.deletelogin();
        FosUser u1=s1.existLogin(username.getText(), password.getText());
       
        if (u1 != null)
@@ -72,7 +68,30 @@ public class FXMLLoginController implements Initializable {
            System.out.println("Invalid Cred");
        }
        
-     ((Node) event.getSource()).getScene().getWindow().hide();
+     try {
+               
+               if (u1.getRoles().equals("Client"))
+               {
+              
+               Parent AnchorPane = FXMLLoader.load(getClass().getResource("FXMLFrontProduit.fxml"));
+               Stage stage = new Stage();
+               Scene scene = new Scene(AnchorPane);
+               stage.setScene(scene);
+               stage.show();
+               }
+               else {
+                   Parent AnchorPane = FXMLLoader.load(getClass().getResource("FXMLProduitCategorie.fxml"));
+                   Stage stage = new Stage();
+               Scene scene = new Scene(AnchorPane);
+               stage.setScene(scene);
+               stage.show();
+               }
+               
+           } catch (IOException ex) {
+               Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+           }
+                ((Node) event.getSource()).getScene().getWindow().hide();   
+    
     }
     public void redirect(ActionEvent event)
     {

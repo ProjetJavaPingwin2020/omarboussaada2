@@ -23,16 +23,19 @@ import utils.ConnexionBase;
  * @author TH3OMAR
  */
 public class ProjetPidev extends Application {
+// menu a gauche 
+// ajouter les image 
 
+    
     @Override
     public void start(Stage stage) throws Exception {
-       // Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
-       // Parent root = FXMLLoader.load(getClass().getResource("FXMLBackEspece.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLAfficherCategorie_espece.fxml"));
+       // Parent root = FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLBackEspece.fxml"));
+       // Parent root = FXMLLoader.load(getClass().getResource("FXMLAfficherCategorie_espece.fxml"));
        // Parent root = FXMLLoader.load(getClass().getResource("FXMLAfficherEspece.fxml"));
-       // Parent root = FXMLLoader.load(getClass().getResource("FXMLBackCategorie_espece.fxml"));
-       // Parent root = FXMLLoader.load(getClass().getResource("FXMLBackEspece.fxml"));
-
+        //Parent root = FXMLLoader.load(getClass().getResource("FXMLBackCategorie_espece.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("FXMLBackEspece.fxml"));
+        
         Scene scene = new Scene(root);
 
         stage.setScene(scene);

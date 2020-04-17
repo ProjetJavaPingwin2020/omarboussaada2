@@ -35,6 +35,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import utils.SendEmail;
 
 /**
  * FXML Controller class
@@ -52,7 +53,6 @@ public class FXMLBackCategorie_especeController implements Initializable {
     private Button modify;
     @FXML
     private TableView<Categorie_espece> categorietable;
-    @FXML
     private TextField id;
     @FXML
     private TextField nom;
@@ -80,6 +80,10 @@ public class FXMLBackCategorie_especeController implements Initializable {
     private Button BoutiqueBtn;
     @FXML
     private Button FormationsBtn;
+    @FXML
+    private Button list_Categorie;
+    @FXML
+    private Button list_espece;
     
     
 
@@ -88,19 +92,20 @@ public class FXMLBackCategorie_especeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         pane11.setStyle("-fx-background-image: url(\"/images/4444.jpg\")");
+        pane11.setStyle("-fx-background-image: url(\"/images/4444.jpg\")");
         pane2.setStyle("-fx-background-image: url(\"/images/2222.jpg\")");
         pane3.setStyle("-fx-background-image: url(\"/images/3333.jpg\")");
         pane4.setStyle("-fx-background-image: url(\"/images/4444.jpg\")");
 
         backgroundAnimation();
-       TableColumn id = new TableColumn("id");
-       categorietable.getColumns().addAll(id);
+      
        TableColumn nom = new TableColumn("Nom");
        categorietable.getColumns().addAll(nom);
+       TableColumn image = new TableColumn("image");
+       categorietable.getColumns().addAll(image);
         ServiceCategorie_espece sce = new ServiceCategorie_espece();
-        nom.setCellValueFactory(new PropertyValueFactory<Categorie_espece, String>("nom"));
-        id.setCellValueFactory(new PropertyValueFactory<Categorie_espece, Integer>("id"));
+       nom.setCellValueFactory(new PropertyValueFactory<Categorie_espece, String>("nom"));
+       image.setCellValueFactory(new PropertyValueFactory<Categorie_espece, String>("image"));
        
        
      
@@ -118,7 +123,7 @@ public class FXMLBackCategorie_especeController implements Initializable {
     private void display(MouseEvent event) {
           Categorie_espece f = categorietable.getSelectionModel().getSelectedItem();
         
-        id.setText( String.valueOf(f.getId()));
+        //id.setText( String.valueOf(f.getId()));
         nom.setText(f.getNom());
     }
 
@@ -135,6 +140,7 @@ public class FXMLBackCategorie_especeController implements Initializable {
             alert.setContentText("ajouter avec succés");
 
             alert.showAndWait();
+           SendEmail.sendMail("omar.boussaada1@esprit.tn");
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -155,22 +161,17 @@ public class FXMLBackCategorie_especeController implements Initializable {
      int Id = Integer.valueOf(id.getText()); //yekhou nom eli aatithoulou besh yfasakh bih
 
         int status = ServiceCategorie_espece.delete(Id);
-        if (status != 1) {
+       
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Supprimer categorie espece");
              alert.setHeaderText("Dialogue information");
             alert.setContentText("supprimer avec succés");
             alert.showAndWait();
+            SendEmail.sendMail("omar.boussaada1@esprit.tn");
 
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Supprimer categorie categorie");
-            alert.setHeaderText("Dialogue ERREUR");
-            alert.setContentText("Un probléme est survenu");
+      
 
-            alert.showAndWait();
-
-        }
+        
         nom.clear(); 
         id.clear();
         ServiceCategorie_espece sce = new ServiceCategorie_espece();
@@ -180,7 +181,7 @@ public class FXMLBackCategorie_especeController implements Initializable {
 
     @FXML
     
-    private void modifer(ActionEvent event) throws SQLException {
+    private void modifer(ActionEvent event) throws SQLException, Exception {
          String Nom = nom.getText();
          int Id =Integer.valueOf(id.getText());
            //  String Img = img.getText();
@@ -197,6 +198,7 @@ public class FXMLBackCategorie_especeController implements Initializable {
             alert.setContentText("Modification avec succés");
 
             alert.showAndWait();
+            SendEmail.sendMail("omar.boussaada1@esprit.tn");
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -272,5 +274,33 @@ public class FXMLBackCategorie_especeController implements Initializable {
     @FXML
     private void redirectionFormation(ActionEvent event) {
     }
+
+  @FXML
+    private void redirectionEspece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLBackCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLBackCategorie_especeController acc = loader.getController();
+        EspecesBtn.getScene().setRoot(root);
+    }
+  //sous menu
+    @FXML
+      private void list_Categorie(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLBackCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLBackCategorie_especeController acc = loader.getController();
+        list_Categorie.getScene().setRoot(root);
+    }
+
+    @FXML
+    private void list_espece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLBackEspece.fxml"));
+        Parent root = loader.load();
+        FXMLBackEspeceController acc = loader.getController();
+        list_espece.getScene().setRoot(root);
+    }
+
+  
+
+   
 }
     

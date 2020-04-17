@@ -5,19 +5,22 @@
  */
 package Entity;
 
+import Services.ServiceCategorie_espece;
 import java.io.InputStream;
+import java.sql.SQLException;
 
 /**
  *
  * @author TH3OMAR
  */
-public class Espece {
+public class Espece extends Categorie_espece{
     private int id;
     private String nom;
     private String type;
     private String description;
     private InputStream image;
     private int categorie;
+   ServiceCategorie_espece sce = new ServiceCategorie_espece();
 
     public Espece(int id, String nom, String type, String description, InputStream image, int categorie) {
         this.id = id;
@@ -81,6 +84,9 @@ public class Espece {
 
     public int getCategorie() {
         return categorie;
+    }
+    public String getNomCategorie (int categorie) throws SQLException {
+        return sce.getCategorie_espece(categorie);
     }
 
     public void setCategorie(int categorie) {

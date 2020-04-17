@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -71,6 +72,12 @@ public static int idcourent;
     private Pane pane3;
     @FXML
     private Pane pane4;
+    @FXML
+    private Button list_Categorie;
+    @FXML
+    private Button list_espece;
+    @FXML
+    private Button afficher_espece;
     /**
      * Initializes the controller class.
      */
@@ -83,10 +90,11 @@ public static int idcourent;
 
         backgroundAnimation();
         
-        TableColumn id = new TableColumn("id");
-       categorie_espece.getColumns().addAll(id);
+        
        TableColumn nom = new TableColumn("Nom");
        categorie_espece.getColumns().addAll(nom);
+       TableColumn image = new TableColumn("Image");
+       categorie_espece.getColumns().addAll(image);
        
         
         
@@ -94,7 +102,7 @@ public static int idcourent;
         ServiceCategorie_espece sce = new ServiceCategorie_espece();
         ServiceEspece cl = new ServiceEspece();
         nom.setCellValueFactory(new PropertyValueFactory<Categorie_espece, String>("nom"));
-        id.setCellValueFactory(new PropertyValueFactory<Categorie_espece, String>("id"));
+        image.setCellValueFactory(new PropertyValueFactory<Categorie_espece, String>("image"));
      
      
         try {
@@ -167,23 +175,45 @@ private void backgroundAnimation() {
     }
 
     @FXML
-    private void afficher_espece(ActionEvent event) throws SQLException, IOException {
+    private void afficher_espece(ActionEvent event) throws IOException  {
           
-    
+            idcourent = 0;
             Categorie_espece f = categorie_espece.getSelectionModel().getSelectedItem();
             idcourent = f.getId();
-            sendSMS sms= new sendSMS();
-          sms.sendSms("21698821576", "hello");
+           // sendSMS sms= new sendSMS();
+          //sms.sendSms("21698821576", "hello");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLafficherparC.fxml"));
         Parent root = loader.load();
         FXMLafficherparCController acc = loader.getController();
-        FormationsBtn.getScene().setRoot(root);
-            
-            
-            
-        
+        afficher_espece.getScene().setRoot(root);        
+            }
+    
+
+    @FXML
+    private void redirectionEspece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAfficherCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLAfficherCategorie_especeController acc = loader.getController();
+        EspecesBtn.getScene().setRoot(root);
+    }
+
+    @FXML
+    private void list_Categorie(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAfficherCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLAfficherCategorie_especeController acc = loader.getController();
+        list_Categorie.getScene().setRoot(root);
+    }
+
+    @FXML
+    private void list_espece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAfficherEspece.fxml"));
+        Parent root = loader.load();
+       FXMLAfficherEspeceController acc = loader.getController();
+        list_espece.getScene().setRoot(root);
     }
 }
+
 
    
     

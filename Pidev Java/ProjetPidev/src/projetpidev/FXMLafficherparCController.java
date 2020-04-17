@@ -7,6 +7,7 @@ package projetpidev;
 
 import Entity.Espece;
 import Services.ServiceEspece;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -15,7 +16,9 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -160,6 +163,14 @@ private void backgroundAnimation() {
 
     @FXML
     private void redirectionFormation(ActionEvent event) {
+    }
+
+    @FXML
+    private void redirectionEspece(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAfficherCategorie_espece.fxml"));
+        Parent root = loader.load();
+        FXMLAfficherCategorie_especeController acc = loader.getController();
+        FormationsBtn.getScene().setRoot(root);
     }
     
 }

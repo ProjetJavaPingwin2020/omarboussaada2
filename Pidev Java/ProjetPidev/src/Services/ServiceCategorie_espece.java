@@ -95,8 +95,8 @@ public class ServiceCategorie_espece {
         return st;
     }
 
-    public static Categorie_espece getCategorie_espece(String name) throws SQLException {
-        String req = "SELECT * from categorie_espece where nom='" + name + "'";
+    public static String getCategorie_espece(int Id) throws SQLException {
+        String req = "SELECT * from categorie_espece where id='" + Id + "'";
         Connection con = ConnexionBase.getInstance().getCnx();
         PreparedStatement pre = (PreparedStatement) con.prepareStatement(req);
         Categorie_espece c = new Categorie_espece();
@@ -113,7 +113,7 @@ public class ServiceCategorie_espece {
             Categorie_espece cc = new Categorie_espece(nom, image);
             c = cc;
         }
-        return c;
+        return c.getNom();
     }
     
     public static List<Categorie_espece> readAll() throws SQLException {
